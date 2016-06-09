@@ -50,8 +50,7 @@ int main(int argc, const char * argv[]) {
         //dataArray.arr = new long[dataArray.size];
         
         for (long i = 0; i < size; i++) {
-            //long randN = random() % 1000;
-            long randN = 1;
+            long randN = random() % 1000;
             randomArray[i] = randN;
             //cout << randN << ' ';
         }
