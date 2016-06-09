@@ -13,8 +13,9 @@
 #include <string>
 #include <unistd.h>
 #include <pthread.h>
-
+#include <chrono>
 using namespace std;
+using namespace std::chrono;
 
 struct storageArray {
     long start = 0;
@@ -55,6 +56,7 @@ int main(int argc, const char * argv[]) {
             //cout << randN << ' ';
         }
         clock_t startClock = clock();
+        high_resolution_clock::time_point start = high_resolution_clock::now();
         long chunk = size/nThreads; //256
         
         for (int i = 0; i < nThreads; i++) {
@@ -84,8 +86,11 @@ int main(int argc, const char * argv[]) {
         delete[] randomArray;
         randomArray = nullptr;
         clock_t endClock = clock();
+        high_resolution_clock::time_point end = high_resolution_clock::now();
         double elapsedTime = (double)(endClock - startClock)/CLOCKS_PER_SEC;
-        cout << "Time Elapsed: " << elapsedTime << endl;
+        duration<double> time_span = duration_cast<duration<double>>(end - start);
+        cout << "CPU Time Elapsed: " << elapsedTime << endl;
+        cout << "Wall Time Elapsed: " << time_span.count() << endl;
     }
     return 0;
 }
